@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'photo',
     loadChildren: () => import('./pages/photo/photo.module').then( m => m.PhotoPageModule)
+  },
+  {
+    path: 'fblogin',
+    loadChildren: () => import('./pages/fblogin/fblogin.module').then( m => m.FbloginPageModule)
   }
 ];
 

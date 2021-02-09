@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.leanstep.windowshop;
 
 import android.os.Bundle;
 
@@ -16,6 +16,8 @@ public class MainActivity extends BridgeActivity {
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
       // Additional plugins you've installed go here
       // Ex: add(TotallyAwesomePlugin.class);
+      add(com.getcapacitor.community.facebooklogin.FacebookLogin.class);
+
     }});
   }
 }

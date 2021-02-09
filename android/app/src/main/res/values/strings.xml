@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">myApp</string>
     <string name="title_activity_main">myApp</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">com.leanstep.windowshop</string>
+      <string name="custom_url_scheme">com.leanstep.windowshop</string>
+      <string name="facebook_app_id">1034404380387192</string>
+    <string name="fb_login_protocol_scheme">fb1034404380387192</string>
 </resources>
