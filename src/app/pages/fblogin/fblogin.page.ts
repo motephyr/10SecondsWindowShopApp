@@ -16,12 +16,13 @@ export class FbloginPage {
   fbLogin: FacebookLoginPlugin;
   user = null;
   token = null;
-
+  accesstoken = null;
   constructor(private authService: AuthService) {
     this.setupFbLogin();
   }
 
   async setupFbLogin() {
+    this.accesstoken = await this.authService.getAccessToken()
     if (isPlatform('desktop')) {
       this.fbLogin = FacebookLogin;
     } else {
@@ -39,6 +40,7 @@ export class FbloginPage {
       this.token = result.accessToken;
       this.authService.loadUserData(this.token.userId, this.token.token).subscribe((data) => {
         this.user = data.user
+        this.accesstoken = data.user.access_token
       })
     } else if (result.accessToken && !result.accessToken.userId) {
       // Web only gets the token but not the user ID
@@ -55,7 +57,8 @@ export class FbloginPage {
     if (result.accessToken) {
       this.token = result.accessToken;
       this.authService.loadUserData(this.token.userId, this.token.token).subscribe((data) => {
-        this.user = data
+        this.user = data.user
+                this.accesstoken = data.user.access_token
       })
     } else {
       // Not logged in.
@@ -64,8 +67,10 @@ export class FbloginPage {
 
 
   async logout() {
+    await this.authService.logout();
     await this.fbLogin.logout();
     this.user = null;
     this.token = null;
+    this.accesstoken = null;
   }
 }

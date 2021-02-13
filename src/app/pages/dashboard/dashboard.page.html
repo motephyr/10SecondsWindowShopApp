@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<h1>Welcome!</h1>
+<div *ngIf="items">
+  My Items
+  <ul>
+    <li *ngFor="let item of items">{{item.id}}</li>
+  </ul>
+</div>
+</ion-content>

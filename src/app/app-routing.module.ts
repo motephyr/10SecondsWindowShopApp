@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'fblogin',
     loadChildren: () => import('./pages/fblogin/fblogin.module').then( m => m.FbloginPageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   }
 ];
 

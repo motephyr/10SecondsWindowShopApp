@@ -8,7 +8,7 @@ export class AppComponent {
   public appPages = [
     { title: 'FB login', url: '/fblogin', icon: 'mail' },
     { title: 'Photo', url: '/photo', icon: 'paper-plane' },
-    // { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
+    { title: 'Items', url: '/dashboard', icon: 'heart' },
     // { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
     // { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     // { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
