@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {tap} from 'rxjs/operators';
-import {Observable, BehaviorSubject} from 'rxjs';
+import {tap, map} from 'rxjs/operators';
+import { BehaviorSubject, from} from 'rxjs';
 
 import {Storage} from '@ionic/storage';
 import {AuthResponse} from './auth-response';
@@ -16,7 +16,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private storage: Storage) {}
 
-  loadUserData(userId, token) {
+  loadUserData(userId: string, token: string) {
     const params = {
       userId: userId,
       token: token
@@ -26,6 +26,7 @@ export class AuthService {
       tap(async (res: AuthResponse) => {
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
+          await this.storage.set("USER", JSON.stringify(res.user));
           this.authSubject.next(res.user);
         }
       })
@@ -33,6 +34,7 @@ export class AuthService {
   }
   async logout() {
     await this.storage.remove("ACCESS_TOKEN");
+    await this.storage.remove("USER");
     this.authSubject.next(null);
   }
 
@@ -40,7 +42,14 @@ export class AuthService {
     return this.authSubject.asObservable();
   }
   async getAccessToken() {
-
     return await this.storage.get("ACCESS_TOKEN");
+  }
+
+  getUser() {
+    return from(this.storage.get("USER")).pipe(
+      map((data: string) => {
+          return JSON.parse(data);
+      })
+    );
   }
 }

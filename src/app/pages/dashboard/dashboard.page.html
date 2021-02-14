@@ -8,11 +8,14 @@
 </ion-header>
 
 <ion-content>
-<h1>Welcome!</h1>
-<div *ngIf="items">
-  My Items
-  <ul>
-    <li *ngFor="let item of items">{{item.id}}</li>
-  </ul>
-</div>
+  <h1>Welcome!</h1>
+  <div *ngIf="items">
+    My Items
+    <ul>
+      <li *ngFor="let item of items">
+        {{item.id}}
+        <img src="{{item.video_path}}" />
+      </li>
+    </ul>
+  </div>
 </ion-content>
