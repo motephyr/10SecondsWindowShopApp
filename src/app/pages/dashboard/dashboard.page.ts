@@ -1,31 +1,32 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../../auth/auth.service";
-import { ItemServie } from "../../services/item.service";
- 
+import {Component, OnInit} from "@angular/core";
+import {AuthService} from "../../auth/auth.service";
+import {ItemServie} from "../../services/item.service";
+
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.page.html",
   styleUrls: ["./dashboard.page.scss"],
 })
 export class DashboardPage implements OnInit {
-  userName = "";
-  items:any;
+  items: any;
   constructor(private authService: AuthService,
-    private itemService:ItemServie) {}
- 
+    private itemService: ItemServie) {}
+
   ngOnInit() {
     this.fetchItems();
   }
- 
-  fetchItems(){
-    this.itemService.getItems().subscribe(
-      (data) => {
-         this.items = data.items;
-      },
-      (error) => {
-        console.log(JSON.stringify(error))
-        alert('failed fetch items')
-      }
-    )
+
+  fetchItems() {
+    this.authService.getUser().subscribe((data) => {
+      this.itemService.getMyitems().subscribe(
+        (data) => {
+          this.items = data.items.reverse();
+        },
+        (error) => {
+          console.log(JSON.stringify(error))
+          alert('failed fetch items')
+        }
+      )
+    });
   }
 }

@@ -11,4 +11,8 @@ export class ItemServie {
     getItems():Observable<any>{
         return this.http.get("/v1/items");
     }
+
+    getMyitems():Observable<any>{
+        return this.http.get("/v1/items/myitems");
+    }
 }
