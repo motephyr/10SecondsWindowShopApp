@@ -14,7 +14,7 @@ export class AuthService {
   AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
   authSubject = new BehaviorSubject(null);
 
-  constructor(private httpClient: HttpClient, private storage: Storage) {}
+  constructor(private http: HttpClient, private storage: Storage) {}
 
   loadUserData(userId: string, token: string) {
     const params = {
@@ -22,7 +22,7 @@ export class AuthService {
       token: token
     }
 
-    return this.httpClient.post('/facebook/token', params).pipe(
+    return this.http.post('/facebook/token', params).pipe(
       tap(async (res: AuthResponse) => {
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);

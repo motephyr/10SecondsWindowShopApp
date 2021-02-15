@@ -4,5 +4,6 @@ export interface AuthResponse {
     username: string,
     email: string,
     access_token: string,
+    role: string
   }
 }
