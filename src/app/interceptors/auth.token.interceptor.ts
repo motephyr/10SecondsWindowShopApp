@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/common/http';
-import {Observable, from} from 'rxjs';
+import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse} from '@angular/common/http';
+import {Observable, from, throwError} from 'rxjs';
 import {AuthService} from '../auth/auth.service';
-import {map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
@@ -19,6 +19,19 @@ export class AuthTokenInterceptor implements HttpInterceptor {
             headers: req.headers.set('Authorization', `Bearer ${token}`)
           });
           return next.handle(transformedReq);
+        }),
+        catchError((error: HttpErrorResponse) => {
+          let errorMsg = '';
+          if (error.error instanceof ErrorEvent) {
+            console.log('this is client side error');
+            errorMsg = `Error: ${error.error.message}`;
+          }
+          else {
+            console.log('this is server side error');
+            errorMsg = `Error Code: ${error.status}\nMessage: ${error.message}\n${error.error}`;
+          }
+          console.log(errorMsg);
+          return throwError(errorMsg);
         })
       )
 

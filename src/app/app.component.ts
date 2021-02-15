@@ -24,7 +24,7 @@ export class AppComponent {
   ];
   public appPages = this.appPagesInit
 
-  constructor(private authService: AuthService,private http: HttpClient, private storage: Storage) {
+  constructor(private authService: AuthService, private http: HttpClient, private storage: Storage) {
     // this.init()
   }
 
@@ -35,21 +35,12 @@ export class AppComponent {
     });
   }
 
-  changeRole(role){
+  changeRole(role) {
     const changeToRole = role === 'buyer' ? 'seller' : 'buyer';
-    this.http.post('/v1/users/update', {role: changeToRole}).subscribe(async(data) => {
+    this.http.post('/v1/users/update', {role: changeToRole}).subscribe(async (data) => {
       await this.storage.set("USER", JSON.stringify(data.user));
       this.onMenuOpen()
-    }, (error) => {
-      let errorMessage = '';
-      if (error.error instanceof ErrorEvent) {
-        // client-side error
-        errorMessage = `Error: ${error.error.message}`;
-      } else {
-        // server-side error
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}\n${error.error}`;
-      }
-      console.log(errorMessage);
     })
+
   }
 }
