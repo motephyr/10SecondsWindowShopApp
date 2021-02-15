@@ -10,16 +10,35 @@
 <ion-content padding>
   <div *ngIf="items">
     <ion-list>
-      <ion-item *ngFor="let item of items">
-        <ion-thumbnail slot="start">
-          <ion-img [src]="item.video_path"></ion-img>
-        </ion-thumbnail>
-        <ion-label>
-          <h2>{{item.title}}</h2>
-          <h2>${{item.price}}</h2>
-{{item.status}}
-        </ion-label>
-      </ion-item>
+
+      <ion-item-sliding *ngFor="let item of items">
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-img [src]="item.video_path"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{item.title}}</h2>
+            <h2>${{item.price}}</h2>
+          </ion-label>
+          <ion-label>
+            Status: {{item.status}}
+          </ion-label>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="primary" (click)="updateItem(item.id, 'publish')">
+            Publish
+          </ion-item-option>
+          <ion-item-option color="secondary" (click)="updateItem(item.id, 'draft')">
+            Draft
+          </ion-item-option>
+          <ion-item-option color="success" (click)="updateItem(item.id, 'sold_out')">
+            Soldout
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="deleteItem(item.id)">
+            Delete
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
   </div>
 </ion-content>

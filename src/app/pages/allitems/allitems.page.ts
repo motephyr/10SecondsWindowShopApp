@@ -19,10 +19,6 @@ export class AllitemsPage implements OnInit {
     this.itemService.getItems().subscribe(
       (data) => {
         this.items = data.items.reverse();
-      },
-      (error) => {
-        console.log(JSON.stringify(error))
-        alert('failed fetch items')
       }
     )
   };

@@ -21,12 +21,26 @@ export class DashboardPage implements OnInit {
       this.itemService.getMyitems().subscribe(
         (data) => {
           this.items = data.items.reverse();
-        },
-        (error) => {
-          console.log(JSON.stringify(error))
-          alert('failed fetch items')
         }
       )
     });
+  }
+  updateItem(id, status) {
+    this.itemService.updateItem(id, status).subscribe(
+      (data) => {
+        this.items = this.items.reduce((sum, x) => {
+          return x.id !== data.item.id ? sum.concat(x) : sum.concat(data.item)
+        },[])
+      }
+    )
+  }
+  deleteItem(id) {
+    this.itemService.deleteItem(id).subscribe(
+      (data) => {
+        this.items = this.items.filter((x) => {
+          return x.id !== data.item.id
+        })
+      }
+    )
   }
 }
