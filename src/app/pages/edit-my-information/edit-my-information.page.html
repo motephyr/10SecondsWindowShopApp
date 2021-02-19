@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>editMyInformation</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Contact Information</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form>
+    <h1>How to contact you?</h1>
+    <ion-item>
+      <ion-textarea autoGrow="true" placeholder="My name is Mark. Glad to see you!
+Email: motephyr@gmail.com
+Tel: xxxxxxx
+Fb: http://fb.me/motephyr
+" [(ngModel)]="information" name="information"></ion-textarea>
+    </ion-item>
+    <br>
 
+
+  </form>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-button (click)="save()" color="primary">Save</ion-button>
+  </ion-fab>
 </ion-content>
