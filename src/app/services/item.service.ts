@@ -12,6 +12,10 @@ export class ItemServie {
     return this.http.get("/v1/items");
   }
 
+  getItem(id: String, state = 'next'): Observable<any> {
+    return this.http.get(`/v1/items/${id}?${state}=true`);
+  }
+
   getMyitems(): Observable<any> {
     return this.http.get("/v1/items/myitems");
   }

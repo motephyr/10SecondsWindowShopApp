@@ -16,6 +16,7 @@ export class AppComponent {
     {title: 'FB login', url: '/fblogin', icon: 'mail'},
   ];
   appPageBuyer = [
+    {title: 'Browse', url: '/one-item', icon: 'heart'},
     {title: 'All Items', url: '/allitems', icon: 'heart'},
     {title: 'Logout', url: '/fblogin', icon: 'mail'}
   ];

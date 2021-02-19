@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngIf="item">
+    <ion-img [src]="item.video_path"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>${{item.price}}</ion-card-subtitle>
+      <ion-card-title>{{item.title}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+
+    <ion-fab vertical="center" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="prev()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+    <ion-fab vertical="center" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="next()">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

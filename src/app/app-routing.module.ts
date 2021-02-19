@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'edit-my-information',
     loadChildren: () => import('./pages/edit-my-information/edit-my-information.module').then( m => m.EditMyInformationPageModule)
+  },
+  {
+    path: 'one-item',
+    loadChildren: () => import('./pages/one-item/one-item.module').then( m => m.OneItemPageModule)
   }
 ];
 
