@@ -43,4 +43,11 @@ export class DashboardPage implements OnInit {
       }
     )
   }
+
+  doRefresh(event) {
+    this.fetchItems()
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
 }
