@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'allitems',
     loadChildren: () => import('./pages/allitems/allitems.module').then( m => m.AllitemsPageModule)
+  },
+  {
+    path: 'edit-my-information',
+    loadChildren: () => import('./pages/edit-my-information/edit-my-information.module').then( m => m.EditMyInformationPageModule)
   }
 ];
 

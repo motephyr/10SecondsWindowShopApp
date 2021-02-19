@@ -20,8 +20,9 @@ export class AppComponent {
     {title: 'Logout', url: '/fblogin', icon: 'mail'}
   ];
   appPageSeller = [
-    {title: 'My Items', url: '/dashboard', icon: 'heart'},
-    {title: 'Photo', url: '/photo', icon: 'paper-plane'},
+    {title: 'Manage My Items', url: '/dashboard', icon: 'heart'},
+    {title: 'Publish Item', url: '/photo', icon: 'paper-plane'},
+    {title: 'Edit my information', url: '/edit-my-information', icon: 'paper-plane'},
     {title: 'Logout', url: '/fblogin', icon: 'mail'}
   ];
   public appPages = this.appPagesInit
