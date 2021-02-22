@@ -8,14 +8,15 @@ import {DashboardPageRoutingModule} from './dashboard-routing.module';
 
 import {DashboardPage} from './dashboard.page';
 import {ItemServie} from '../../services/item.service';
-
+import {PipesModule} from '../../modules/pipes.module'; // -> imported filter pipe
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DashboardPageRoutingModule
+    DashboardPageRoutingModule,
+    PipesModule
   ],
   declarations: [DashboardPage],
   providers: [ItemServie]

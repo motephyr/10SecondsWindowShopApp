@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from 'rxjs';
 
 @Injectable()
@@ -12,8 +12,18 @@ export class ItemServie {
     return this.http.get("/v1/items");
   }
 
-  getItem(id: String, state = 'next'): Observable<any> {
-    return this.http.get(`/v1/items/${id}?${state}=true`);
+  getItem(id: String, state = 'next', period = 1): Observable<any> {
+
+    period = (period < 10) ? period : 10
+
+    const params = new HttpParams({
+      fromObject: {
+        [state]: 'true',
+        period: period.toString()
+      }
+    });
+
+    return this.http.get(`/v1/items/${id}`, {params});
   }
 
   getMyitems(): Observable<any> {

@@ -16,6 +16,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
         switchMap(token => {
           const transformedReq = req.clone({
             url: `http://192.168.43.68:3333${req.url}`,
+            // url: `https://windowshop.leanstep.net${req.url}`,
             headers: req.headers.set('Authorization', `Bearer ${token}`)
           });
           return next.handle(transformedReq);
