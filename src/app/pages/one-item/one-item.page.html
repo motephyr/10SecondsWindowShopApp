@@ -17,15 +17,21 @@
   </ion-card>
 
 
-    <ion-fab vertical="center" horizontal="start" slot="fixed">
+  <ion-fab vertical="center" horizontal="start" slot="fixed">
     <ion-fab-button (click)="prev()">
       <ion-icon name="chevron-back-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-    <ion-fab vertical="center" horizontal="end" slot="fixed">
+  <ion-fab vertical="center" horizontal="end" slot="fixed">
     <ion-fab-button (click)="next()">
       <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="checkout()">
+      <ion-icon name="bag-check-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

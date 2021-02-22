@@ -40,4 +40,8 @@ export class ItemServie {
   deleteItem(id): Observable<any> {
     return this.http.delete(`/v1/items/${id}`)
   }
+
+  checkout(id): Observable<any> {
+    return this.http.post(`/v1/items/${id}/checkUserInformation`,{})
+  }
 }

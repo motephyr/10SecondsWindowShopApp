@@ -17,7 +17,7 @@ export class EditMyInformationPage implements OnInit {
   }
   async save() {
     this.http.post('/v1/users/update', {information: this.information}).subscribe(async (data) => {
-            await this.storage.set("USER", JSON.stringify(data['user']));
+      await this.storage.set("USER", JSON.stringify(data['user']));
       this.getData()
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',

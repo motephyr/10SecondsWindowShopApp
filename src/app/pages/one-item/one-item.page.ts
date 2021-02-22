@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ItemServie} from 'src/app/services/item.service';
-
+import {AlertController} from '@ionic/angular';
 @Component({
   selector: 'app-one-item',
   templateUrl: './one-item.page.html',
@@ -9,7 +9,7 @@ import {ItemServie} from 'src/app/services/item.service';
 export class OneItemPage implements OnInit {
   item = null
   viewPeriod = 0;
-  constructor(private itemService: ItemServie) {
+  constructor(private itemService: ItemServie, public alertController: AlertController) {
   }
 
   ngOnInit() {
@@ -44,9 +44,24 @@ export class OneItemPage implements OnInit {
     )
   };
 
-  counterTimer(){
+  counterTimer() {
     setInterval(() => {
-       this.viewPeriod = this.viewPeriod + 1
+      this.viewPeriod = this.viewPeriod + 1
     }, 1000)
+  }
+
+  checkout() {
+    this.itemService.checkout(this.item.id).subscribe(
+      async (data) => {
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Check seller information',
+        message: data.seller.information,
+        buttons: ['OK']
+      });
+
+      await alert.present();
+      }
+    )
   }
 }
