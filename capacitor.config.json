@@ -1,7 +1,7 @@
 {
   "appId": "com.leanstep.windowshop",
   "appName": "myApp",
-  "bundledWebRuntime": false,
+  "bundledWebRuntime": true,
   "npmClient": "npm",
   "webDir": "www",
   "plugins": {
@@ -9,9 +9,5 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {},
-  "server": {
-    "url": "http://192.168.43.68:8100",
-    "cleartext": true
-  }
+  "cordova": {}
 }

@@ -3,7 +3,8 @@ import {MediaCapture, MediaFile, CaptureError, CaptureImageOptions} from '@ionic
 import {HttpClient} from '@angular/common/http';
 import {Capacitor} from '@capacitor/core';
 import {Router} from '@angular/router';
-
+import {isPlatform} from '@ionic/angular';
+import {Plugins, CameraResultType} from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -33,20 +34,31 @@ export class VideoService {
     this.router.navigate(['/dashboard'])
   }
 
-
   public async addNewToGallery(title, price) {
     let options: CaptureImageOptions = {limit: 1}
-    await this.mediaCapture.captureImage(options)
-      .then(
-        async (data: MediaFile[]) => {
-          if (data.length > 0) {
-            await this.uploadFile(title, price, data[0]);
+    if (!isPlatform('desktop')) {
+      await this.mediaCapture.captureImage(options)
+        .then(
+          async (data: MediaFile[]) => {
+            if (data.length > 0) {
+              await this.uploadFile(title, price, data[0]);
+            }
+          },
+          (err: CaptureError) => {
+            console.log('err')
+            console.error(err)
           }
-        },
-        (err: CaptureError) => {
-          console.log('err')
-          console.error(err)
-        }
-      );
+        );
+    } else {
+      const {Camera} = Plugins;
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Uri
+      });
+      let imageUrl = image.webPath;
+      let imageUrlArr = imageUrl.split('/')
+      await this.uploadFile(title, price, {fullPath: imageUrl, name: `${imageUrlArr[imageUrlArr.length - 1]}.${image.format}`});
+    }
   }
 }

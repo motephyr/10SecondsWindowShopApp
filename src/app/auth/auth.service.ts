@@ -11,7 +11,6 @@ import {AuthResponse} from './auth-response';
   providedIn: 'root'
 })
 export class AuthService {
-  AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
   authSubject = new BehaviorSubject(null);
 
   constructor(private http: HttpClient, private storage: Storage) {}
