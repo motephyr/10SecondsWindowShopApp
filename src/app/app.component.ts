@@ -17,13 +17,13 @@ export class AppComponent {
   ];
   appPageBuyer = [
     {title: 'Browse', url: '/one-item', icon: 'heart'},
-    {title: 'All Items', url: '/allitems', icon: 'heart'},
+    {title: 'My Bought Items', url: '/allitems', icon: 'heart'},
     {title: 'Logout', url: '/fblogin', icon: 'mail'}
   ];
   appPageSeller = [
     {title: 'Manage My Items', url: '/dashboard', icon: 'heart'},
     {title: 'Publish Item', url: '/photo', icon: 'paper-plane'},
-    {title: 'Edit my information', url: '/edit-my-information', icon: 'paper-plane'},
+    {title: 'Edit My Information', url: '/edit-my-information', icon: 'paper-plane'},
     {title: 'Logout', url: '/fblogin', icon: 'mail'}
   ];
   public appPages = this.appPagesInit
