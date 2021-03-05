@@ -8,8 +8,13 @@ export class ItemServie {
 
   }
 
-  getItems(): Observable<any> {
-    return this.http.get("/v1/items");
+  getItems(kind: string): Observable<any> {
+    const params = new HttpParams({
+      fromObject: {
+        kind: kind,
+      }
+    });
+    return this.http.get("/v1/items", {params});
   }
 
   getItem(id: String, state = 'next', period = 1): Observable<any> {
@@ -42,6 +47,6 @@ export class ItemServie {
   }
 
   checkout(id): Observable<any> {
-    return this.http.post(`/v1/items/${id}/checkUserInformation`,{})
+    return this.http.post(`/v1/items/${id}/checkUserInformation`, {})
   }
 }

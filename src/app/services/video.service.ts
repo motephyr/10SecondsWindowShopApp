@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MediaCapture, MediaFile, CaptureError, CaptureImageOptions} from '@ionic-native/media-capture/ngx';
+import {MediaCapture, MediaFile, CaptureError, CaptureVideoOptions} from '@ionic-native/media-capture/ngx';
 import {HttpClient} from '@angular/common/http';
 import {Capacitor} from '@capacitor/core';
 import {Router} from '@angular/router';
@@ -27,17 +27,19 @@ export class VideoService {
       'enctype': 'multipart/form-data'
     };
     let options = {headers: headers}
-    await this.http.post('/v1/items', formData, options).subscribe((data) => {
+    this.http.post('/v1/items', formData, options).subscribe((data) => {
       console.log('data');
       console.log(data);
+      this.router.navigate(['/dashboard'])
     })
-    this.router.navigate(['/dashboard'])
   }
 
   public async addNewToGallery(title, price) {
-    let options: CaptureImageOptions = {limit: 1}
+    let options: CaptureVideoOptions = { limit: 1, duration: 10, quality:100 }
+    // let options: CaptureImageOptions = {limit: 1}
     if (!isPlatform('desktop')) {
-      await this.mediaCapture.captureImage(options)
+      await this.mediaCapture.captureVideo(options)
+      // await this.mediaCapture.captureImage(options)
         .then(
           async (data: MediaFile[]) => {
             if (data.length > 0) {

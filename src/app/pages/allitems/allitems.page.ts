@@ -16,7 +16,7 @@ export class AllitemsPage implements OnInit {
   }
 
   fetchItems() {
-    this.itemService.getItems().subscribe(
+    this.itemService.getItems('isBuyerPage').subscribe(
       (data) => {
         this.items = data.items.reverse();
       }

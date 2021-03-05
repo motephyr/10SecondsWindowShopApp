@@ -9,6 +9,7 @@ import {AlertController} from '@ionic/angular';
 export class OneItemPage implements OnInit {
   item = null
   viewPeriod = 0;
+  loading = false
   constructor(private itemService: ItemServie, public alertController: AlertController) {
   }
 
@@ -18,28 +19,34 @@ export class OneItemPage implements OnInit {
   }
 
   fetchItem() {
-    this.itemService.getItems().subscribe(
+    this.loading = true
+    this.itemService.getItems('').subscribe(
       (data) => {
         const items = data.items
         this.item = items[Math.floor(Math.random() * items.length)];
+        this.loading = false
       }
     )
   };
 
   next() {
+    this.loading = true
     this.itemService.getItem(this.item.id, 'next', this.viewPeriod).subscribe(
       (data) => {
         this.viewPeriod = 0
         this.item = data.item
+        this.loading = false
       }
     )
   };
 
   prev() {
+    this.loading = true
     this.itemService.getItem(this.item.id, 'prev', this.viewPeriod).subscribe(
       (data) => {
         this.viewPeriod = 0
         this.item = data.item
+        this.loading = false
       }
     )
   };
@@ -53,14 +60,14 @@ export class OneItemPage implements OnInit {
   checkout() {
     this.itemService.checkout(this.item.id).subscribe(
       async (data) => {
-      const alert = await this.alertController.create({
-        cssClass: 'my-custom-class',
-        header: 'Check seller information',
-        message: data.seller.information,
-        buttons: ['OK']
-      });
+        const alert = await this.alertController.create({
+          cssClass: 'my-custom-class',
+          header: 'Check seller information',
+          message: data.seller.information,
+          buttons: ['OK']
+        });
 
-      await alert.present();
+        await alert.present();
       }
     )
   }

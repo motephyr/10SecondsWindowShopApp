@@ -17,9 +17,6 @@
 
       <ion-item-sliding *ngFor="let item of items">
         <ion-item>
-          <ion-thumbnail slot="start">
-            <ion-img [src]="item.video_path"></ion-img>
-          </ion-thumbnail>
           <ion-label position="fixed">
             <h2>{{item.title}}</h2>
             <h2>${{item.price}}</h2>
