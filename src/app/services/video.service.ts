@@ -3,14 +3,15 @@ import {MediaCapture, MediaFile, CaptureError, CaptureVideoOptions} from '@ionic
 import {HttpClient} from '@angular/common/http';
 import {Capacitor} from '@capacitor/core';
 import {Router} from '@angular/router';
-
+import {LoadingController} from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
   files = [];
+  loading = null
 
-  constructor(private mediaCapture: MediaCapture, private http: HttpClient, private router: Router) {}
+  constructor(private mediaCapture: MediaCapture, private http: HttpClient, private router: Router, public loadingController: LoadingController) {}
 
   async uploadFile(title, price, data) {
     const blob = await fetch(
@@ -25,11 +26,24 @@ export class VideoService {
       'enctype': 'multipart/form-data'
     };
     let options = {headers: headers}
-    this.http.post('/v1/items', formData, options).subscribe((data) => {
+    await this.uploadToServer(formData, options);
+  }
+
+  private async uploadToServer(formData: FormData, options: {headers: {enctype: string;};}) {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait a few seconds...',
+      duration: 15000
+    });
+    await this.loading.present();
+
+    this.http.post('/v1/items', formData, options).subscribe(async (data) => {
+      await this.loading.onDidDismiss();
+
       console.log('data');
       console.log(data);
-      this.router.navigate(['/dashboard'])
-    })
+      this.router.navigate(['/dashboard']);
+    });
   }
 
   public async addNewToGallery(title, price) {
@@ -52,7 +66,7 @@ export class VideoService {
 
   public async addFileToGallery(title, price, file) {
     const ext = file.name.split('.').pop();
-  
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('price', price);
@@ -62,10 +76,7 @@ export class VideoService {
       'enctype': 'multipart/form-data'
     };
     let options = {headers: headers}
-    this.http.post('/v1/items', formData, options).subscribe((data) => {
-      console.log('data');
-      console.log(data);
-      this.router.navigate(['/dashboard'])
-    })
+    await this.uploadToServer(formData, options);
+
   }
 }
