@@ -20,7 +20,18 @@
     </ion-item>
   </form>
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="addPhotoToGallery()">
+
+     <ion-fab-button *ngIf="isPlatform('desktop')" (click)="selectImageSource()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <input
+      type="file"
+      #fileInput
+      (change)="uploadFile($event)"
+      hidden="true"
+      accept="video/*"
+    />
+    <ion-fab-button *ngIf="!isPlatform('desktop')" (click)="addPhotoToGallery()">
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>
   </ion-fab>

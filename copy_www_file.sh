@@ -1,5 +1,5 @@
 npm install
-ionic build
+ionic build --prod
 
 # scp -Cr ./www/* windowshopdeploy:~/www/
 tar czf - ./www/* | ssh windowshopdeploy "tar xvzf -"

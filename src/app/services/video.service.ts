@@ -3,8 +3,6 @@ import {MediaCapture, MediaFile, CaptureError, CaptureVideoOptions} from '@ionic
 import {HttpClient} from '@angular/common/http';
 import {Capacitor} from '@capacitor/core';
 import {Router} from '@angular/router';
-import {isPlatform} from '@ionic/angular';
-import {Plugins, CameraResultType} from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -35,32 +33,39 @@ export class VideoService {
   }
 
   public async addNewToGallery(title, price) {
-    let options: CaptureVideoOptions = { limit: 1, duration: 10, quality:100 }
+    let options: CaptureVideoOptions = {limit: 1, duration: 10, quality: 100}
     // let options: CaptureImageOptions = {limit: 1}
-    if (!isPlatform('desktop')) {
-      await this.mediaCapture.captureVideo(options)
+    await this.mediaCapture.captureVideo(options)
       // await this.mediaCapture.captureImage(options)
-        .then(
-          async (data: MediaFile[]) => {
-            if (data.length > 0) {
-              await this.uploadFile(title, price, data[0]);
-            }
-          },
-          (err: CaptureError) => {
-            console.log('err')
-            console.error(err)
+      .then(
+        async (data: MediaFile[]) => {
+          if (data.length > 0) {
+            await this.uploadFile(title, price, data[0]);
           }
-        );
-    } else {
-      const {Camera} = Plugins;
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri
-      });
-      let imageUrl = image.webPath;
-      let imageUrlArr = imageUrl.split('/')
-      await this.uploadFile(title, price, {fullPath: imageUrl, name: `${imageUrlArr[imageUrlArr.length - 1]}.${image.format}`});
-    }
+        },
+        (err: CaptureError) => {
+          console.log('err')
+          console.error(err)
+        }
+      );
+  }
+
+  public async addFileToGallery(title, price, file) {
+    const ext = file.name.split('.').pop();
+  
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('price', price);
+    formData.append('video_file', file, `myimage.${ext}`);
+
+    const headers = {
+      'enctype': 'multipart/form-data'
+    };
+    let options = {headers: headers}
+    this.http.post('/v1/items', formData, options).subscribe((data) => {
+      console.log('data');
+      console.log(data);
+      this.router.navigate(['/dashboard'])
+    })
   }
 }
